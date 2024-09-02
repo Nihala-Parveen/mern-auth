@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react"
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage'
 import { app } from "../firebase"
 import { updateUserStart , updateUserSuccess , updateUserFailure } from "../redux/user/userSlice"
+import { toast } from "react-toastify"
 
 const Profile = () => {
   const fileRef = useRef(null)
@@ -62,6 +63,11 @@ const Profile = () => {
         return
       }
       dispatch(updateUserSuccess(data))
+      toast.success('User updated Successfully',{
+        autoClose: 500,
+        className:'text-green-600',
+        hideProgressBar: true
+      })
       setUpdateSuccess(true)
     } catch (error) {
        dispatch(updateUserFailure(error))
@@ -121,7 +127,6 @@ const Profile = () => {
         </button>
       </form>
       <p className="text-red-700 mt-5">{ error && 'Something went wrong!' }</p>
-      <p className="text-green-700 mt-5">{ updateSuccess && 'User updated successfully.' }</p>
     </div>
   );
 }
