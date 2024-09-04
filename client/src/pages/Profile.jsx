@@ -4,6 +4,7 @@ import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/
 import { app } from "../firebase"
 import { updateUserStart , updateUserSuccess , updateUserFailure } from "../redux/user/userSlice"
 import { toast } from "react-toastify"
+import Header from "../components/Header"
 
 const Profile = () => {
   const fileRef = useRef(null)
@@ -75,7 +76,9 @@ const Profile = () => {
   }
 
   return (
-    <div className="p-3 max-w-lg mx-auto">
+    <>
+      <Header />
+      <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7">Profile</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
@@ -116,7 +119,7 @@ const Profile = () => {
           onChange={handleChange}
         />
         <input
-          type="text"
+          type="password"
           id="password"
           placeholder="Password"
           className="bg-slate-100 rounded-lg p-3"
@@ -128,6 +131,7 @@ const Profile = () => {
       </form>
       <p className="text-red-700 mt-5">{ error && 'Something went wrong!' }</p>
     </div>
+    </>
   );
 }
 
